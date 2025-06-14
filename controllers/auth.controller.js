@@ -47,7 +47,6 @@ exports.register = async (req, res) => {
     res.status(201).json({ message: "User registered successfully!" });
   } catch (err) {
     console.error("Register Error:", err);
-    // Check for specific Mongoose validation errors
     if (err.name === "ValidationError") {
       return res.status(400).json({ message: err.message });
     }

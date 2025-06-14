@@ -1,12 +1,6 @@
 const User = require("../models/user");
 const hashPassword = require("../utils/hashPassword");
 
-/**
- * Controller function to fetch the authenticated user's profile.
- * This function assumes that req.user has been populated by an authentication middleware.
- * @param {Object} req - The Express request object.
- * @param {Object} res - The Express response object.
- */
 exports.profile = async (req, res) => {
   try {
     if (!req.user) {
@@ -15,13 +9,13 @@ exports.profile = async (req, res) => {
         .json({ message: "Unauthorized: User information not available." });
     }
 
-    const { _id, username, email, description, role } = req.user;
+    const { _id, username, email, role } = req.user;
 
     res.status(200).json({
-      id: _id, // Use _id as 'id' for client-side consistency
-      username,
-      email,
-      role,
+      id: _id,
+      username: username,
+      email: email,
+      role: role,
     });
   } catch (err) {
     console.error("Profile Error:", err);
@@ -29,13 +23,6 @@ exports.profile = async (req, res) => {
   }
 };
 
-/**
- * Controller function to update the authenticated user's profile.
- * This function assumes that req.user has been populated by an authentication middleware.
- * Allowed updates: username, email, description, and optionally password.
- * @param {Object} req - The Express request object (req.body contains update data).
- * @param {Object} res - The Express response object.
- */
 exports.updateProfile = async (req, res) => {
   try {
     if (!req.user) {
@@ -94,12 +81,6 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-/**
- * Controller function to delete the authenticated user's profile.
- * This function assumes that req.user has been populated by an authentication middleware.
- * @param {Object} req - The Express request object.
- * @param {Object} res - The Express response object.
- */
 exports.deleteProfile = async (req, res) => {
   try {
     if (!req.user) {
@@ -123,12 +104,6 @@ exports.deleteProfile = async (req, res) => {
   }
 };
 
-/**
- * Controller function to fetch all users.
- * This route should typically be restricted to admin users via middleware.
- * @param {Object} req - The Express request object.
- * @param {Object} res - The Express response object.
- */
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find().select("-password");

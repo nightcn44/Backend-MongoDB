@@ -1,12 +1,5 @@
 const jwt = require("jsonwebtoken");
 
-/**
- * Generates a JSON Web Token (JWT) for a given user.
- * The token includes user ID, username, email, and description (if available).
- * @param {Object} user - The user object from which to create the token payload.
- * @returns {string} The generated JWT.
- * @throws {Error} If JWT_SECRET is not defined in environment variables.
- */
 const generateToken = (user) => {
   if (!process.env.JWT_SECRET) {
     console.error(

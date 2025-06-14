@@ -45,11 +45,6 @@ exports.protect = async (req, res, next) => {
   }
 };
 
-/**
- * Middleware to authorize users based on their role.
- * This middleware should be placed AFTER the 'protect' middleware.
- * @param {...string} roles - The roles that are allowed to access the route (e.g., 'admin', 'moderator').
- */
 exports.authorize = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {
